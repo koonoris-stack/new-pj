@@ -1,0 +1,573 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: "Roboto", sans-serif;
+    height: 100vh;
+    background-color: #f6f7fb; /* ถ้าต้องการพื้นหลังอ่อนๆ */
+    background-image: url("bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ใช้ .product-form แทน selector ทั่วไป เพื่อไม่กระทบฟอร์มอื่น */
+.product-form{
+    width: 420px;
+    max-width: 92%;
+    padding: 28px 28px 22px;
+    background: #ffffff;
+    backdrop-filter: none;
+    box-shadow: 0 8px 30px rgba(18,18,18,0.12);
+    border-radius: 12px;
+    border: none;
+    align-items: stretch;
+    gap: 22px; /* เพิ่มช่องว่างแนวตั้งระหว่าง children */
+    position: relative;
+}
+
+/* หัวเรื่องกลาง พร้อมขนาดและสี */
+.product-form h1{
+    margin: 0;
+    color: #222;
+    font-size: 18px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* ปุ่มปิดมุมขวาบน */
+.product-form .modal-close{
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #666;
+}
+
+/* เปลี่ยน inputbox ให้เป็นกล่อง input ขาวตามรูป */
+.inputbox {
+    width: 100%;
+    min-height: 56px; /* เพิ่มความสูงเพื่อความโปร่ง */
+    border-radius: 8px;
+    padding: 0 12px; /* เพิ่ม padding ซ้ายขวาเล็กน้อย */
+    margin: 8px 0; /* เพิ่ม margin แนวตั้งเพื่อความมั่นใจในการเว้นช่อง */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    border: 1px solid #eef0f2;
+    box-shadow: 0 2px 6px rgba(16,24,40,0.04);
+}
+
+/* เอา label ด้านข้างออก (ใช้ placeholder แทน) */
+.inputbox label { display: none; }
+
+.product-form .inputbox input {
+    flex: 1 1 auto;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: #222;
+    font-size: 14px;
+    padding: 12px 8px;
+}
+
+/* ปุ่ม eye ข้างใน input */
+.inputbox .eye-btn {
+    background: transparent;
+    border: none;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #6b7280;
+}
+
+/* ปุ่ม submit แบบเต็มความกว้าง สีแดงและมน */
+.product-form .primary-btn {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: #d4001a; /* สีแดงเข้มตามรูป */
+    color: #ffffff;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(212,0,26,0.16);
+}
+
+/* ข้อความเล็กๆ กึ่งกลาง */
+.product-form .helper {
+    text-align: center;
+    color: #6b7280;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+/* notification area */
+.app-cmp-notifications{
+    margin-top: 8px;
+    color: #e11d48;
+    font-size: 13px;
+    text-align: center;
+}
+
+/* Header (global variant used in layouts.main) */
+.chikuru-header {
+    width: 100%;
+    background: transparent;
+    border-bottom: 0;
+    padding: 14px 0;
+}
+.chikuru-header-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: flex-end; /* put login to the right */
+    padding: 8px 12px;
+}
+
+/* Brand */
+.brand { display: none; }
+
+/* Search: rounded, white, shadowed */
+.search-wrap { flex: 1 1 auto; }
+.chikuru-search-form { display:flex; justify-content:center; }
+.chikuru-search-form input[type="text"] {
+    width: 640px;
+    max-width: 100%;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid #eef2f5;
+    box-shadow: 0 8px 24px rgba(16,24,40,0.06);
+    font-size: 14px;
+    background: #fff;
+    color: #111827;
+}
+
+/* Placeholder color */
+.chikuru-search-form input::placeholder {
+    color: #9ca3af;
+}
+
+/* user/login area */
+.user-icons { flex: 0 0 120px; text-align: right; }
+
+/* login link style */
+.chikuru-login-link {
+    display:inline-block;
+    padding: 10px 14px;
+    border-radius: 20px;
+    background: transparent;
+    color: #374151;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid transparent;
+}
+
+/* login button (auth user) */
+.chikuru-login-btn {
+    padding: 10px 14px;
+    border-radius: 20px;
+    background: #d4001a;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+/* PRODUCTS GRID: center area and responsive columns */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on desktop */
+    gap: 22px;
+    align-items: start;
+    margin: 8px auto 18px;
+    max-width: 1200px;
+    padding: 0 16px;
+}
+
+/* medium screens: 2 columns */
+@media (max-width: 900px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        padding: 0 12px;
+    }
+}
+
+/* small screens: 1 column */
+@media (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 0 10px;
+    }
+}
+
+/* Card: slightly larger, vertical layout like image */
+.product-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0 10px 24px rgba(16,24,40,0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    transition: transform .12s ease, box-shadow .12s ease;
+    min-height: 280px;
+}
+
+/* Thumbnail full width and taller for poster-like appearance */
+.product-thumb {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #f0f0f0;
+    display: block;
+    background: #fff;
+}
+
+/* meta under thumbnail */
+.product-meta {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 0 6px;
+}
+
+.product-title {
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 14px;
+    height: 36px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* small red delivery note */
+.product-meta-small {
+    color: #ef4444;
+    font-size: 12px;
+    text-align: center;
+}
+
+/* By Order button as link-styled pill */
+.by-order {
+    display: inline-block;
+    background: #d4001a;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 26px;
+    text-align: center;
+    font-weight: 700;
+    text-decoration: none;
+    margin: 6px auto 0;
+}
+
+/* price styling */
+.product-price {
+    color: #111827;
+    font-weight: 800;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+/* section title band already present; ensure spacing */
+.section-title-band { margin: 12px 0 8px; display:inline-block; }
+
+/* responsive: ลดขนาด card บนอุปกรณ์เล็ก */
+@media (max-width: 420px) {
+    .product-form { padding: 18px; width: 92%; gap: 16px; }
+    .inputbox { min-height: 52px; margin: 6px 0; }
+    .product-form h1 { font-size: 16px; }
+}
+@media (max-width: 900px) {
+    .chikuru-search-form input[type="text"] { width: 420px; }
+    .chikuru-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    .chikuru-card .product-thumb { height: 120px; }
+}
+@media (max-width: 480px) {
+    .search-wrap input[type="text"] { width: 100%; }
+    .chikuru-header-inner { padding: 0 12px; gap:8px; }
+    .brand { flex: 0 0 auto; font-size: 16px; }
+    .chikuru-search-form input[type="text"] { width: 100%; padding: 12px; border-radius: 10px; }
+    .user-icons { display: none; } /* hide login link on very small screens (adjust if needed) */
+}
+
+/* ช่วยเน้นหัวข้อ "New item" ให้เป็นแถบเด่น */
+.section-title-band {
+    display: inline-block;
+    background: linear-gradient(90deg, #fff5f5 0%, #fff0f0 100%);
+    border: 1px solid #ffd6d6;
+    padding: 8px 14px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(212, 0, 26, 0.08);
+    margin-bottom: 16px;
+}
+
+.section-title-band .section-title {
+    margin: 0;
+    color: #b91c1c; /* เข้มขึ้นเป็นแดง */
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.2px;
+}
+
+/* ปรับขนาดแถบในหน้าจอเล็ก */
+@media (max-width: 640px) {
+    .section-title-band { padding: 8px 10px; border-radius: 10px; }
+    .section-title-band .section-title { font-size: 14px; }
+}
+
+/* Top banner (big white title) */
+.top-banner {
+    width: 100%;
+    background: linear-gradient(90deg, #d4001a, #a70e14);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+}
+
+.top-banner-inner {
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between; /* title left, search center, actions right */
+    align-items: center;
+    gap: 12px;
+}
+
+/* center search container */
+.top-banner-search {
+    flex: 1 1 480px;
+    display: flex;
+    justify-content: center;
+    min-width: 0; /* allow flex shrink */
+}
+
+/* search form input */
+.top-search-form {
+    width: 100%;
+    max-width: 620px;
+}
+.top-search-form input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    outline: none;
+    font-weight: 600;
+    transition: box-shadow .12s ease, background .12s ease;
+}
+.top-search-form input[type="text"]::placeholder {
+    color: rgba(255,255,255,0.8);
+}
+/* focus */
+.top-search-form input[type="text"]:focus {
+    background: rgba(255,255,255,0.12);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* ensure actions remain right-aligned */
+.top-banner-actions { flex: 0 0 auto; display:flex; gap:10px; align-items:center; }
+
+/* ใหม่: ปรับเป็นปุ่มแบบกรอบ โปร่ง แต่เด่นในแถบสีเข้ม */
+.top-login-link,
+.top-login-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1.5px solid rgba(255,255,255,0.18); /* กรอบโปร่ง */
+    background: rgba(255,255,255,0.03); /* พื้นโปร่งเล็กน้อย */
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .14s ease, color .14s ease, transform .06s ease, box-shadow .14s ease;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12); /* เล็กน้อยเพื่อให้เด่นขึ้น */
+}
+
+/* hover / focus: เติมพื้นขาวและเปลี่ยนสีข้อความให้มีคอนทราสต์ */
+.top-login-link:hover,
+.top-login-link:focus,
+.top-login-btn:hover,
+.top-login-btn:focus {
+    background: #ffffff;
+    color: #a70e14; /* สีตัวอักษรเมื่อพื้นเป็นขาว */
+    border-color: rgba(255,255,255,0.95);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.16);
+}
+
+/* ปรับขนาดเล็กลงบนมือถือ */
+@media (max-width: 420px) {
+    .top-login-link,
+    .top-login-btn {
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 13px;
+    }
+}
+
+/* Product detail card (two-column) */
+.product-detail {
+    max-width: 1180px;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 28px;
+    align-items: start;
+    padding: 12px;
+}
+
+/* Gallery */
+.product-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.product-gallery-main {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(16,24,40,0.06);
+}
+.product-gallery-main img {
+    width: 300px;
+    height: 320px;          /* ให้ความสูงปรับตามสัดส่วน */
+
+    /* ถ้าใช้กับ fixed height จะครอบภาพ แต่ยังปล่อยให้ width เป็น 100% */
+    display: block;
+}
+
+/* thumbs row */
+.product-gallery-thumbs {
+    display:flex;
+    gap:8px;
+    margin-top:6px;
+}
+.product-gallery-thumbs img {
+    width:72px;
+    height:72px;
+    object-fit:cover;
+    border-radius:6px;
+    border:1px solid #eee;
+}
+
+/* Info column */
+.product-info {
+    background: #fff;
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0 10px 24px rgba(16,24,40,0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.pd-name {
+    margin:0;
+    font-size:20px;
+    font-weight:700;
+    color:#111827;
+}
+.pd-meta { color:#555; font-size:13px; display:flex; flex-direction:column; gap:6px; }
+.pd-price-row { display:flex; align-items:center; gap:12px; margin-top:8px; }
+
+.price-badge {
+    background:#fff;
+    color:#d4001a;
+    border:1px solid #f3c4c6;
+    padding:10px 14px;
+    border-radius:8px;
+    font-weight:800;
+    font-size:18px;
+    box-shadow: 0 6px 18px rgba(212,0,26,0.06);
+}
+.old-price { color:#9ca3af; text-decoration:line-through; font-size:14px; }
+
+/* Actions */
+.pd-actions { display:flex; gap:10px; align-items:center; margin-top:10px; }
+.btn { padding:10px 14px; border-radius:8px; text-decoration:none; cursor:pointer; font-weight:700; border:1px solid transparent; }
+.btn-primary { background:#1f2937; color:#fff; border-color:transparent; }
+.btn-danger { background:#fff; color:#d4001a; border:1px solid #d4001a; }
+.btn-ghost { background:transparent; color:#374151; border:1px solid #e6eef5; }
+.inline-form { display:inline-block; margin:0; padding:0; }
+
+/* Description */
+.pd-description h3 { margin:12px 0 6px; font-size:15px; }
+.pd-description p { color:#333; line-height:1.6; }
+
+/* Responsive: stack on small screens */
+@media (max-width: 960px) {
+    .product-detail { grid-template-columns: 1fr; padding:8px; }
+    .product-gallery-main img { height: 360px; }
+    .product-gallery-thumbs img { width:56px; height:56px; }
+    .product-info { padding:12px; }
+}
+
+/* Responsive: ลด max-height บนอุปกรณ์เล็ก */
+@media (max-width: 960px) {
+    .product-gallery-main img { max-height: 480px; }
+}
+@media (max-width: 480px) {
+    .product-gallery-main img { max-height: 360px; }
+}
+
+/* ปุ่มชื่อผู้ใช้ใหม่ */
+.top-user-link {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1.5px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.03);
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background .14s ease, color .14s ease, transform .06s ease, box-shadow .14s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* hover / focus */
+.top-user-link:hover,
+.top-user-link:focus {
+    background: #ffffff;
+    color: #a70e14;
+    border-color: rgba(255,255,255,0.95);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.16);
+}
+
+/* responsive tweak (small screens) */
+@media (max-width: 420px) {
+    .top-user-link { padding: 6px 8px; font-size: 13px; margin-left:6px; }
+}
